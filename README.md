@@ -1,2 +1,2 @@
-Jobs Portal
+UFO Client
 ==========
