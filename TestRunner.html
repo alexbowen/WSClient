@@ -1,0 +1,273 @@
+<!DOCTYPE HTML>
+<html manifest="" lang="en-US">
+<head>
+    <title>Reviews Test Suite</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Query and visualise M&amp;S review data">
+    <meta name="author" content="Anna Powell-Smith">
+    <link href="/static/css/plugins/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/plugins/bootstrap/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="/static/css/plugins/chosen/chosen.css" rel="stylesheet">
+    <link href="/static/css/plugins/slickgrid/slick.grid.css" type="text/css" rel="stylesheet">
+    <link href="/static/css/plugins/jquery/jquery-ui-1.8.21.custom.css" rel="stylesheet">
+    <link href="/static/css/plot.css" rel="stylesheet">
+    <link rel="shortcut icon" href="../media/favicon.ico" />
+    <!--<script src="http://use.typekit.com/dmp6hdw.js"></script>-->
+    <!--<script>try{Typekit.load();}catch(e){}</script>-->
+    <!--[if lt IE 9]>
+        <script src="../media/js/plugins/shims/html5.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" href="../media/favicon.ico">
+
+    <link rel="stylesheet" href="node_modules/mocha/mocha.css" />
+
+    <script src="node_modules/mocha/mocha.js"></script>
+    <script src="node_modules/chai/chai.js"></script>
+    <script src="lib/require/require.js"></script>
+    <script>
+        var expect = chai.expect;
+
+        //namespace to add classes etc into.
+        window.reviewsPortal = window.reviewsPortal || {};
+        window.searchData = {};
+
+        requirejs.config({
+            baseUrl : 'static/js',
+            paths: {
+                lib: '../../lib/application',
+                tests: '../../tests'
+            }
+        });
+
+        require([
+            'lib/domReady',
+            'lib/plugins/jquery/core',
+            'utils/logging'
+        ], function (domReady) {
+            require(['lib/plugins/jquery/eventDrag'], function () {
+                require(['reviews', 'lib/plugins/slickgrid/core'], function (reviews) {
+                    domReady(function () {
+                        require([
+                            'tests/grid',
+                            'tests/tcodes',
+                            'tests/searchData'
+                        ], function () {
+                            window.mochaPhantomJS ? mochaPhantomJS.run() : mocha.run();
+                        })
+                    });
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="mocha"></div>
+
+    <div class="container">
+    
+    <!-- Header -->
+    <div class="row">
+    <div class="span12">    
+    <h1><a href="">M&amp;S Reviews:</a></h1>
+  <div id="header">
+  <a href="">
+    <span id="category-heading">ALL CATEGORIES</span>
+    <br/>
+    <span id="date-heading">1-8 JAN 2012</span></a>
+  </div>
+    </div>
+    </div>
+    
+    <!-- Review search form -->
+    <div class="row">
+    <div class="span12">
+    <form id="review_form" class="well form-inline">
+        <label id="find-products">Find products in category:</label>
+        <select class="chosen span4" id="tcode-select">
+            <option value="Tcode Select" class="test"></option>
+            <optgroup label="WOMENSWEAR">
+            <option value="T01">T01: Ladies Accessories</option>
+            <option value="T02">T02: Ladies Footwear</option>
+            <option value="T06">T06: Jewellery</option>
+            <option value="T38">T38: Knitwear</option>
+            <option value="T41">T41: Casual Tops</option>
+            <option value="T42">T42: Dresses</option>
+            <option value="T43">T43: Formal Tops</option>
+            <option value="T49">T49: Coats</option>
+            <option value="T50">T50: Autograph</option>
+            <option value="T51">T51: Leisurewear</option>
+            <option value="T52">T52: Holiday</option>
+            <option value="T53">T53: Autograph Weekend</option>
+            <option value="T54">T54: Casual Bottoms</option>
+            <option value="T55">T55: Maternity</option>
+            <option value="T56">T56: Portfolio</option>
+            <option value="T57">T57: Formal Trousers & Skirts</option>
+            <option value="T58">T58: Classics</option>
+            <option value="T59">T59: Ladies Suits And Jackets</option>
+            <option value="T62">T62: Per Una Womenswear</option>
+            <option value="T66">T66: Indigo</option>
+            <option value="T69">T69: Limited Collection</option>
+            <option value="T82">T82: Ladies Slippers</option>
+            <option value="T83">T83: Handbags</option>
+            <option value="T91">T91: Special Events</option>
+            <option value="T97">T97: Petite</option>
+            </optgroup>
+            <optgroup label="LINGERIE">
+            <option value="T32">T32: Body Solutions</option>
+            <option value="T33">T33: Bras</option>
+            <option value="T37">T37: Sleepwear</option>
+            <option value="T60">T60: Hosiery</option>
+            <option value="T61">T61: Knickers & Vests</option>
+            <option value="T81">T81: Collection</option>
+            </optgroup>
+            <optgroup label="MENSWEAR">
+            <option value="T03">T03: Mens Footwear + Slippers</option>
+            <option value="T07">T07: Mens Nightwear</option>
+            <option value="T09">T09: Mens Accessories</option>
+            <option value="T10">T10: Mens Socks</option>
+            <option value="T11">T11: Mens Formal Shirts</option>
+            <option value="T12">T12: Mens Ties & Formal Accessories</option>
+            <option value="T14">T14: Mens Underwear</option>
+            <option value="T15">T15: Mens Suits</option>
+            <option value="T16">T16: Mens Outerwear</option>
+            <option value="T17">T17: Mens Casual Trousers</option>
+            <option value="T18">T18: Mens Formal Trousers</option>
+            <option value="T19">T19: Mens Jackets</option>
+            <option value="T25">T25: Mens Casual Shirts</option>
+            <option value="T28">T28: Mens Leisurewear</option>
+            <option value="T30">T30: Mens Knitwear</option>
+            <option value="T75">T75: Mens Sportswear</option>
+            </optgroup>
+            <optgroup label="CHILDRENSWEAR">
+            <option value="T64">T64: Childrens Hosiery</option>
+            <option value="T71">T71: Childrens Underwear</option>
+            <option value="T72">T72: Kids Footwear & Accessories</option>
+            <option value="T74">T74: Girlswear</option>
+            <option value="T76">T76: Schoolwear</option>
+            <option value="T77">T77: Toddler Girls</option>
+            <option value="T78">T78: Babywear</option>
+            <option value="T86">T86: Childrens Nightwear</option>
+            <option value="T87">T87: Boyswear</option>
+            <option value="T88">T88: Toddler Boys</option>
+            <option value="T93">T93: Local School Uniform</option>
+            </optgroup>
+            <optgroup label="HOME FURNISHINGS">
+            <option value="T04">T04: Technology</option>
+            <option value="T08">T08: Luggage</option>
+            <option value="T13">T13: Reusable Bags</option>
+            <option value="T21">T21: Stationery + Gifts</option>
+            <option value="T24">T24: Storage</option>
+            <option value="T27">T27: Home Accessories</option>
+            <option value="T34">T34: Kitchens</option>
+            <option value="T35">T35: Bedding</option>
+            <option value="T36">T36: Bathrooms</option>
+            <option value="T39">T39: Furniture</option>
+            <option value="T40">T40: Gifts</option>
+            <option value="T44">T44: Catalogues</option>
+            <option value="T45">T45: M&S Energy</option>
+            <option value="T47">T47: Soft Furnishing</option>
+            <option value="T63">T63: Various - No Staff Discount</option>
+            <option value="T65">T65: Furniture Direct</option>
+            <option value="T68">T68: Household Electricals</option>
+            <option value="T79">T79: Gifts And Toys</option>
+            <option value="T80">T80: Lighting</option>
+            <option value="T84">T84: Take Home Furniture</option>
+            </optgroup>
+            <optgroup label="BEAUTY">
+            <option value="T20">T20: Toiletries & Gifts</option>
+            <option value="T22">T22: Cosmetics & Skincare</option>
+            </optgroup>
+        </select>
+        <label class="reviewed-label">that were reviewed between:</label>
+      <input id="date_from" type="text" class="input-small">*
+     <label class="reviewed-label">and: </label>
+      <input id="date_to" type="text" class="input-small">*<br />
+<br />
+    <label class="reviewed-label">Show reviews for product code: <input id="txtSearch" type="text" class="input-small"></label>
+        <label class="reviewed-label">              Show reviews with rating: <input id="ratingSearch" type="text" class="input-small"></label> 
+<br />
+<br /> * indicates a required field
+<br />
+        <input type="button" value="Search" id="searchButton">
+    <input type="reset" value="Clear" id="clearButton">    <br />        
+
+    </form>
+    
+
+    </div>
+    </div>
+    
+    <hr />
+    
+    <!-- Sidebar and graph -->
+  <div class="row">
+  <div class="span3">
+    
+    <!-- Sidebar -->
+    <div id="sidebar" class="well">
+        
+        <!-- Initialising icon -->
+        <div id="initialising">
+         Getting products...<br/><br/>
+        <img src='/static/img/ajax-loader.gif' alt="Loading icon" />
+        </div>
+        
+        <div id="sidebar-content">
+            
+        <!-- Product or category details -->
+        <h3 id="product-title"></h3>
+
+    <!-- When you look at an individual product, you should see these -->
+    <span id="product-code" class="product-details"></span>
+        <span id="product-brand" class="product-details"></span>
+        <table id="product-aspects" class="product-details"></table>
+
+        <!-- When you are looking at a t-code, you should see these -->
+        <div id="summary" class="section-details"></div>
+        <div id="recent_metrics" class="section-details"></div>
+        <div id="all_time_metrics" class="section-details"></div>
+        <div id="results" class="section-details hidden">
+            
+        </div>
+            
+        </div>
+    </div>
+    </div>
+    
+        <!-- Graph and controls -->
+    <div class="span9" id='graph-container'>
+      <!-- Slider: not currently used. Helpful if there are outliers on the graph,
+      lets the user zoom in on the left-hand side of the graph to see 
+      closely packed items. -->
+      <!--
+        <div id="slider-holder">
+      <span id="zoom-in">Zoom in on left-hand-side of graph:</span>
+        <div id="graph-range-slider"></div>
+        </div> -->
+      <div id="holder"></div>
+    </div>
+    </div>
+    
+    <!-- Review grid -->
+  <div id="review-holder">
+    <hr/>
+  <h3 id='review-section-heading'>All reviews</h3>
+  <a id='download-as-csv' href="#">download as csv</a>
+   
+
+<!-- Search input for grid: TODO (quite easy with SlickGrid) 
+    <input type="text" class="input-medium search-query"> -->
+  <div id="myGrid"></div>
+
+  <!-- FAQs at bottom of page -->
+    <hr/>
+    <p><strong>Where is this data from?</strong> The source data is BazaarVoice reviews from marksandspencer.com.<br/>
+    <strong>Does it include all reviews on the M&amp;S site?</strong> Not at present, due to some errors in the data feed. However, we hope to add these. Currently, it covers some 20,000 products and 250,000 reviews.<br/>
+    <strong>How far does the data go back?</strong> The earliest review in our database is from 7 June 2008.<br/>
+    <strong>How up-to-date is the data?</strong> It should cover all reviews up to mid-April 2012. Newer reviews coming soon.<br/>
+        <strong>I have feedback: where should I send it?</strong> Please contact <em>mns-reviews [at] darkgreener.com</em> with questions or feedback.</p>
+    </div>
+    </div>
+</body>
+</html>

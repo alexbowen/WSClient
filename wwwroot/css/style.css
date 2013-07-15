@@ -1,0 +1,180 @@
+@import url(http://fonts.googleapis.com/css?family=Sigmar+One);
+@import url(http://fonts.googleapis.com/css?family=Inconsolata);
+@import url(http://fonts.googleapis.com/css?family=Allerta+Stencil);
+
+* {margin:0;padding:0;}
+html, body {height: 100%;}
+#wrap {min-height: 100%;min-width: 100%;top: 0;left: 0;position: absolute}
+body {
+	background: #090909;
+	font-family: 'Inconsolata', Courier,serif;
+	font-size: 14px;
+	text-align: center;
+    color:#fcf8e3;
+}
+
+h1, h2, h3, h4, h5, #menu li {
+    font-family: 'Sigmar One', Arial Black, cursive;
+    color: #f9f1dd;
+}
+h1 {
+	font-size: 120px;
+	font-weight: normal;
+	margin: 0;
+	line-height: .8;
+}
+
+h2 {
+	font-size: 150px;
+	font-weight: normal;
+	margin: 0;
+	color: #FFB000;
+	padding: 60px;
+}
+
+p {	width: 80%; margin: 20px auto; text-shadow: 0 2px 1px #000; color: #C5C3DE; }
+ul { list-style: none; text-align:left;}
+ul > li {display: inline-block;zoom:1;*display:inline;}
+
+a {color: #4d4d4d;
+	text-decoration: none;
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-ms-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	transition: all 0.3s ease;}
+a:visited {color: #4d4d4d;}
+a:hover {color: #00aeef;}
+#main {overflow:auto;padding-bottom: 40px;}
+#footer {position: relative;
+	margin-top: -80px; /* negative value of footer height */
+	height: 80px;
+	clear:both;}
+/*Opera Fix*/
+body:before {/* thanks to Maleika (Kohoutec)*/
+content:"";
+height:100%;
+float:left;
+width:0;
+margin-top:-32767px;/* thank you Erik J - negate effect of float*/
+}
+
+#menu,#intro {overflow: hidden;}
+#menu li {
+    font-size:22px;
+    margin:0 18px;
+    -webkit-transform: rotate(340deg);  /* Chrome, Safari 3.1+ */
+    -moz-transform: rotate(340deg);  /* Firefox 3.5-15 */
+    -ms-transform: rotate(340deg);  /* IE 9 */
+    -o-transform: rotate(340deg);  /* Opera 10.50-12.00 */
+    transform: rotate(340deg);  /* Firefox 16+, IE 10+, Opera 12.10+ */}
+#menu li:last-child { float: right;margin:0 50px;}
+#menu li.selected {text-shadow: 0px 0px 10px #4D4D4D, 0px 0px 16px #AEAEAE;}
+#intro{ visibility: hidden;}
+#title {	
+	font-size: 180px;
+    position: absolute;
+	z-index: 99;
+}
+
+.title-line { position: relative; display: block; margin: auto; width: 100%; left: 0;
+    text-shadow:
+        11px 11px 0 #0e0e0e,
+        -5px -5px 0 #0e0e0e,
+        5px -5px 0 #0e0e0e,
+        -5px 5px 0 #0e0e0e,
+        5px 5px 0 #0e0e0e;/**/
+    -webkit-transform: rotate(-19deg);  /* Chrome, Safari 3.1+ */
+    -moz-transform: rotate(-19deg);  /* Firefox 3.5-15 */
+    -ms-transform: rotate(-19deg);  /* IE 9 */
+    -o-transform: rotate(-19deg);  /* Opera 10.50-12.00 */
+    transform: rotate(-19deg);  /* Firefox 16+, IE 10+, Opera 12.10+ */
+
+}
+#title-line1 { left: 30px;top: 100px; font-size: 90px }
+#title-line2 { left: 230px;top: -64px; font-size: 90px }
+.title-line span { display: inline-block; line-height: 1.1; position: relative; }
+#content-wrapper {opacity: 0;}
+#stage {position:relative; overflow:hidden; margin:0 auto;height: 500px;}
+#logo { position: absolute;background: transparent url(../images/bai_logo.png) 0 0 no-repeat;width:79px;height:79px;top: 10px;left: 15px;z-index: 100;}
+.stage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-width: 900px;
+    height: 500px;
+    overflow: hidden;
+}
+#stars {
+    background: transparent url(../images/stars.png) repeat;height: 440px;
+}
+#bg {
+    background: transparent url(../images/skylight.png) 0 0 no-repeat;
+    height: 434px;
+    margin: 0 auto;
+    width: 1000px;
+    position: relative;
+    opacity:0
+}
+#hills {
+    background: transparent url(../images/hills.png) 0 390px repeat-x;
+}
+#treeline {
+    background: transparent url(../images/treeline.png) 0 400px repeat-x;
+}
+#fence {
+    background: transparent url(../images/fence.png) 0 430px repeat-x;
+}
+#trees {
+    background: transparent url(../images/trees.png) 0 0 no-repeat;width:140px;height:140px;position:absolute;top:332px;left:14px
+}
+#foreground {
+    background: transparent url(../images/foreground.png) 0 444px repeat-x;
+}
+#farm {
+    background: transparent url(../images/farmhouse.png) 0 0 no-repeat;width:300px;height:220px;position:absolute;top:262px;left:40px
+}
+
+#farmRight
+{
+    background: transparent url(../images/farmhouse.png) 0 0 no-repeat;width:300px;height:220px;position:absolute;top:262px;right:0;
+    transform: scale(-1, 1);
+    -moz-transform: scale(-1, 1);
+    -webkit-transform: scale(-1, 1);
+    -o-transform: scale(-1, 1);
+    -khtml-transform: scale(-1, 1);
+    -ms-transform: scale(-1, 1);
+    display:none;visibility: hidden;
+}
+
+.farmlights {
+    background: transparent url(../images/farmlight.png) 0 0 no-repeat;width:32px;height:32px;position:absolute;top:114px;left:240px;display:none;visibility: hidden;
+}
+
+#farmRight .farmlights {top:134px}
+
+#ufoContainer {width:255px;height:140px;opacity: 0;position: absolute;top: 0;}
+#ufo {width:255px;height:140px;background-image: url(../images/ufo.png);background-repeat:no-repeat;background-position:0 0;position: absolute;top: 0;left:0}
+#cow {width:60px;height:40px;opacity: 0;background-image: url(../images/cow.png);background-repeat:no-repeat;background-position:0 0;position: absolute;top: 440px;left:720px}
+#beam {width:400px;height:450px;opacity:0;background: transparent url(../images/beam.png) 0 0 no-repeat;position: absolute;top:75px;left:-188px;}
+#speechBubble{background: transparent url(../images/speech_bubble.png) 0 0 no-repeat;width:280px;height:100px;position: absolute;left: -215px;top: -10px;display:none;visibility: hidden;}
+#speech {width: 230px;height: 100px;margin: 35px 0;}
+
+#menu { width: 100%;visibility: hidden}
+#pages, #instructions { margin: 0 auto;}
+
+#typewriterText {font-family: 'Inconsolata', Courier,serif;position: absolute;left: 150px;top: 470px;visibility: hidden;text-align: left;width: 350px;}
+#typewriterText > * {}
+#typewriterText h1 {font-family: 'Inconsolata', Courier,serif;font-size: 18px;line-height: 2;text-align: left}
+#typewriterText a,.typewriterText a:visited {color: #f9f1dd;}
+#typewriterText .display {width: 100%}
+#typewriterText td { border-bottom: 1px solid #585853; padding: 5px 2px }
+#typewriterText td:last-child {text-align: right}
+
+#loader {background: transparent url(../images/ajax-loader.gif) 0 0 no-repeat;width: 16px;height: 16px;margin: -8px 0 0 -8px;;position:absolute;left:50%;top:50%;}
+/*g+*/
+#gSignInWrapper {position: absolute;z-index: 200;right: 10px;visibility: hidden;}
+#customBtn {display: inline-block;background: #CC3732;color: white;width: 42px;border-radius: 5px;}
+#customBtn:hover {background: #e74b37;cursor: hand;}
+span.icon {background: url('../images/btn_red.png') transparent 4px 4px no-repeat;display: inline-block;vertical-align: middle;width: 40px;height: 40px;}

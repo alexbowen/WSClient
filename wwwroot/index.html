@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="eng" lang="eng">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>M&amp;S Job Portal</title>
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="css/normalize.css" type="text/css"/>
+    <link rel="stylesheet" href="css/style.css" type="text/css"/>
+
+    <style>
+    .g-control{position:absolute;right:0;top:0;height:37px;width:314px;margin:10px;}
+    .plus1 {float:right}
+    .sign-in {float:right}
+    .throw {cursor:move}
+
+    *::selection {
+        background:transparent;
+    }
+
+    *::-moz-selection {
+        background:transparent;
+    }
+
+    *::-webkit-selection {
+        background:transparent;
+    }
+    </style>
+
+    <script src="lib/require/require.js"></script>
+
+    <script type="text/javascript">
+
+        function signinCallback (authResult) {
+            if (authResult['access_token']) {
+                gapi.client.load('plus','v1', function(){
+                    var request = gapi.client.plus.people.get({
+                        'userId': 'me'
+                    });
+                    request.execute(function(resp) {
+                        $(window).trigger('auth-success', [resp]);
+                    });
+                });
+
+                document.getElementById('signinButton').setAttribute('style', 'display: none');
+            } else if (authResult['error']) {
+                $(window).trigger('auth-failiure', [authResult['error']]);
+            }
+        }
+
+        ENV = 'dev';
+
+        requirejs.config({
+            baseUrl: ENV === 'production' ? ENV : 'js',
+            paths: {
+                lib : "../../lib"
+            }
+        });
+
+        require([
+            'lib/jquery/1.9.1.min',
+            'lib/jquery/mobile-1.3.1.min'
+        ], function () {
+            require([
+                'lib/require/domReady',
+                'lib/socket.io-client/dist/socket.io',
+                'application',
+                'lib/greensock/TweenMax.min',
+                'lib/jquery/ui.1.10.3.min',
+                'lib/jquery/lettering-0.6.1.min'
+            ], function (domReady, io, Application) {
+                application = new Application($('#ufoContainer'));
+                domReady(function () {
+                    require([
+                        'auth'
+                    ], function () {
+                        require([
+                            'view/main'
+                        ], function () {
+                            console.log('application loaded');
+                        });
+                    });
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+        
+    <div id="wrap">
+        <div id="main">    
+        <div id="loader"></div>
+            <div id="intro">
+                <h1 id="title">
+                    <span id="title-line1" class="title-line">The</span>
+                    <span id="title-line2" class="title-line">Job</span>
+                </h1>
+            </div>
+            <div id="content-wrapper">
+                <div id="stage">
+                    <div id="logo"></div>
+                    <div id="stars" class="stage"></div>
+                    <div id="bg" class="stage"></div>
+                    <div id="hills" class="stage"></div>
+                    <div id="treeline" class="stage"></div>
+                    <div id="fence" class="stage">
+                        <div id="trees"></div>
+                    </div>
+                    <div id="foreground" class="stage">
+                        <div id="farm"><div class="farmlights"></div></div>
+                    </div>
+                    <div id="cow"></div>
+                </div>
+                
+                <div id="ufoContainer" class="throw">
+                    <div id="ufo"></div>
+                    <div id="beam" ></div>
+                    <div id="speechBubble"><div id="speech"></div></div>
+                </div>
+            </div>
+<!--             <div id="typewriterText">
+                <section>
+                    <h1>Top Secret : Roles</h1>
+                    <table class="display">
+                        <tbody>
+                             <tr><td>Software Engineer - WPF</td><td><a href="docs/Top_Secret.pdf" target="_blank" title="instructions">Instructions</a></td></tr>
+                             <tr><td>Software Engineer - iOS</td><td><a href="docs/Top_Secret.pdf" target="_blank" title="instructions">Instructions</a></td></tr>
+                        </tbody>            
+                    </table>
+                </section>
+            </div> -->
+        </div>       
+    </div>
+
+    <div class="g-control">
+        <div class="sign-in">
+            <span id="signinButton">
+                <span
+                class="g-signin"
+                data-callback="signinCallback"
+                data-clientid="150391525361.apps.googleusercontent.com"
+                data-cookiepolicy="http://jobs.ms"
+                data-requestvisibleactions="http://schemas.google.com/AddActivity"
+                data-scope="https://www.googleapis.com/auth/plus.login">
+                </span>
+            </span>
+        </div>
+
+        <!-- Place this tag where you want the +1 button to render. -->
+        <div class="plus1">
+            <div class="g-plusone" data-annotation="inline" data-width="200"></div>
+        </div>
+    </div>
+
+</body>
+</html>
