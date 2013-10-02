@@ -58,14 +58,21 @@ define('view/ufo', function () {
         },
 
         ufoDraggable : function () {
+
+            var ufo = this;
+
             if (!this.auth) {
                 if (!this.ufoIsDraggable()) {
                     this.$container.draggable({
                         cancel: ".disabled",
                         containment: "#content-wrapper",
                         scroll: false,
-                        drag: this.dragUfo,
-                        stop: this.snapUfo
+                        drag: function () {
+                            ufo.dragUfo.apply(ufo);
+                        },
+                        stop: function () {
+                            ufo.snapUfo.apply(ufo);
+                        }
                     });
                 }
             } else {
@@ -110,7 +117,7 @@ define('view/ufo', function () {
             TweenMax.killTweensOf($("#beam"));
             $("#beam").css('visibility', 'visible');
             TweenMax.to($('#beam'), 1, { css: { opacity: 1 }, delay: 0.5, ease: Power3.easeOut });
-            TweenMax.to(this.$container, 1, { css: { left: 710, top: 20 }, ease: Elastic.easeOut, onComplete: hoverUfo });
+            TweenMax.to(this.$container, 1, { css: { left: 710, top: 20 }, ease: Elastic.easeOut, onCompleteScope: this, onComplete: this.hoverUfo });
         },
 
         flyOn : function () {

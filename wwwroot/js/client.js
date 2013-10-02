@@ -113,6 +113,7 @@ define('client', function () {
             });
         },
 
+//TODO split this as in application
         canPair : function (client) {
 
             if (this.getData().id !== client.id && this.getData().auth.etag === client.auth.etag) {

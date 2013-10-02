@@ -52,6 +52,7 @@ define('application', [
             });
 
             this.client.request(function (requestData) {
+                //TODO split this into 'in google' method and 'sameClient' method
                 if (requestData.sender.id !== application.client.options.id && application.client.options.auth.etag === requestData.sender.auth.etag) {
 
                     (new Function(
